@@ -39,8 +39,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             "/auth/forgot-password",
             "/auth/reset-password",
             "/otp/",
-            "/uploads/",
-            "/courses/all"
+            "/uploads/"
+//            "/courses/all"
     );
 
     @Override

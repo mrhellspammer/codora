@@ -29,9 +29,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .with(new CorsConfigurer<>(), config -> config.configurationSource(corsConfigurationSource())) // ✅ New way
+                .with(new CorsConfigurer<>(), config -> config.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // Public access
                         .requestMatchers(
                                 "/auth/admin/login",
                                 "/auth/admin/signup",
@@ -39,11 +40,19 @@ public class SecurityConfig {
                                 "/auth/user/signup",
                                 "/auth/**",
                                 "/otp/**",
-                                "/uploads/**",
-                                "/courses/all"
+                                "/uploads/**"
                         ).permitAll()
 
-                        // Admin-only
+                        // View courses – allowed for both admin and user
+                        .requestMatchers(HttpMethod.GET, "/courses/all").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+
+                        // View modules – allowed for both admin and user
+                        .requestMatchers(HttpMethod.GET, "/{courseId}/modules").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+
+                        // Add module – only admin
+                        .requestMatchers(HttpMethod.POST, "/modules/add").hasAuthority("ROLE_ADMIN")
+
+                        // Add/update courses – only admin
                         .requestMatchers("/courses/add").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/courses/**").hasAuthority("ROLE_ADMIN")
 
@@ -57,7 +66,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // ✅ Stronger CORS configuration source bean
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
@@ -68,7 +76,7 @@ public class SecurityConfig {
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
-        config.setMaxAge(3600L); // Optional: cache preflight for 1 hour
+        config.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

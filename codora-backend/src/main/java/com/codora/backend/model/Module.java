@@ -1,5 +1,6 @@
 package com.codora.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
 public class Module {
 
     @Id
@@ -32,6 +34,7 @@ public class Module {
     // Course to which this module belongs
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
+    @JsonIgnore
     private Course course;
 
     // List of content blocks in this module

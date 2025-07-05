@@ -1,0 +1,16 @@
+# Ignore Maven build files
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Ignore IntelliJ/VSCode/IDE files
+.idea/
+*.iml
+.vscode/
+
+# Ignore OS/system files
+.DS_Store
+*.log
+
+# Ignore Git files
+.git
+.gitignore
