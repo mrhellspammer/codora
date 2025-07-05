@@ -1,5 +1,6 @@
 package com.codora.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,5 +31,6 @@ public class ModuleContent {
     // Module this content belongs to
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "module_id")
+    @JsonIgnore
     private Module module;
 }
