@@ -40,12 +40,13 @@ public class SecurityConfig {
                                 "/auth/user/signup",
                                 "/auth/**",
                                 "/otp/**",
-                                "/images/**",
                                 "/uploads/**"
                         ).permitAll()
 
                         // View courses – allowed for both admin and user
                         .requestMatchers(HttpMethod.GET, "/courses/all").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+
+                        .requestMatchers(HttpMethod.GET, "/images/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
 
                         // View modules – allowed for both admin and user
                         .requestMatchers(HttpMethod.GET, "/{courseId}/modules").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
