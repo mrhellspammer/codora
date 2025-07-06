@@ -40,6 +40,7 @@ public class SecurityConfig {
                                 "/auth/user/signup",
                                 "/auth/**",
                                 "/otp/**",
+                                "/images/**",
                                 "/uploads/**"
                         ).permitAll()
 
