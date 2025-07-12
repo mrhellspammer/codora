@@ -35,7 +35,7 @@ public class CourseImageService {
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
             // Return relative path for image access
-            return "/images/courses/" + filename;
+            return "/uploads/courses/" + filename;
 
         } catch (IOException e) {
             throw new RuntimeException("Failed to save image file: " + e.getMessage());

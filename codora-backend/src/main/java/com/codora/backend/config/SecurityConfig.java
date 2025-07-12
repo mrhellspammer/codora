@@ -56,7 +56,7 @@ public class SecurityConfig {
                         // Add/update courses – only admin
                         .requestMatchers("/courses/add").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/courses/**").hasAuthority("ROLE_ADMIN")
-
+                        .requestMatchers(HttpMethod.PUT,"/courses/{courseId}").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -72,7 +72,8 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
                 "http://localhost:3000",
-                "http://localhost:4000"
+                "http://localhost:4000",
+                "http://localhost:5173"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));

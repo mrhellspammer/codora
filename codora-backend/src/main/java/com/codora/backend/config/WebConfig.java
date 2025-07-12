@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
         Path courseUploadDir = Paths.get("uploads/courses");
         String coursePath = courseUploadDir.toFile().getAbsolutePath();
 
-        registry.addResourceHandler("/images/courses/**")
+        registry.addResourceHandler("/uploads/courses/**")
                 .addResourceLocations("file:" + coursePath + "/");
 
         // Expose module content images
