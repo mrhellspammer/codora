@@ -73,7 +73,8 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of(
                 "http://localhost:3000",
                 "http://localhost:4000",
-                "http://localhost:5173"
+                "http://localhost:5173",
+                "https://enchanting-crisp-7c6b2e.netlify.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
