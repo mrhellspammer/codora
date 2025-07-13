@@ -18,6 +18,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+
 import java.util.List;
 
 @Configuration
@@ -54,7 +55,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/modules/add").hasAuthority("ROLE_ADMIN")
 
                         // Add/update courses – only admin
-                        .requestMatchers("/courses/add").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/courses/add").hasAuthority("ROLE_ADMIN")
+
                         .requestMatchers(HttpMethod.PUT, "/courses/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.PUT,"/courses/{courseId}").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()

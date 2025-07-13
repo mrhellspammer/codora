@@ -9,7 +9,7 @@ import com.codora.backend.model.Course;
 import com.codora.backend.model.Module;
 import com.codora.backend.model.ModuleContent;
 import com.codora.backend.repository.CourseRepository;
-import com.codora.backend.service.CourseImageService;
+import com.codora.backend.service.CloudinaryService;
 import com.codora.backend.service.CourseModuleService;
 import com.codora.backend.service.ModuleContentImageService;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +27,8 @@ public class CourseModuleController {
 
     private final CourseModuleService courseService;
     private final CourseRepository courseRepository;
-    private final CourseImageService imageService;
     private final ModuleContentImageService moduleContentImageService;
+    private final CloudinaryService cloudinaryService; // ✅ New Cloudinary service
 
     // =================== COURSES ===================
 
@@ -39,10 +39,14 @@ public class CourseModuleController {
         Course course = new Course();
         course.setTitle(title);
         course.setDescription(description);
-
+        System.out.println("User Authorities: ");
         if (imageFile != null && !imageFile.isEmpty()) {
-            String imagePath = imageService.saveCourseImage(imageFile, title);
-            course.setImagePath(imagePath);
+            try {
+                String imageUrl = cloudinaryService.uploadImage(imageFile); // ✅ Use Cloudinary
+                course.setImageUrl(imageUrl); // ✅ Update field name
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError().body(null);
+            }
         }
 
         Course saved = courseRepository.save(course);
@@ -61,7 +65,7 @@ public class CourseModuleController {
                         course.getId(),
                         course.getTitle(),
                         course.getDescription(),
-                        course.getImagePath()
+                        course.getImageUrl() // ✅ Updated field name
                 ))
                 .collect(Collectors.toList());
 
@@ -88,8 +92,12 @@ public class CourseModuleController {
         course.setDescription(description);
 
         if (imageFile != null && !imageFile.isEmpty()) {
-            String imagePath = imageService.saveCourseImage(imageFile, title);
-            course.setImagePath(imagePath);
+            try {
+                String imageUrl = cloudinaryService.uploadImage(imageFile); // ✅ Use Cloudinary
+                course.setImageUrl(imageUrl); // ✅ Updated field
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError().body(null);
+            }
         }
 
         Course updated = courseRepository.save(course);

@@ -66,7 +66,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- ✅ Modern JWT Dependencies for Java 11+ -->
+		<!-- Modern JWT Dependencies for Java 11+ -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
@@ -90,6 +90,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+
+		<!-- Cloudinary Java SDK -->
+		<dependency>
+			<groupId>com.cloudinary</groupId>
+			<artifactId>cloudinary-http44</artifactId>
+			<version>1.33.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

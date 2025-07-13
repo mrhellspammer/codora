@@ -26,8 +26,9 @@ public class Course {
     @Column(length = 1000)
     private String description;
 
-    // Path to the course image (e.g., /images/courses/java_intro.png)
-    private String imagePath;
+    // Cloudinary image URL (replacing local imagePath)
+    @Column(name = "image_url")
+    private String imageUrl;
 
     // List of modules under this course
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
