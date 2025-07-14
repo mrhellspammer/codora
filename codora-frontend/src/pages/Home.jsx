@@ -8,6 +8,7 @@ import js from '../assets/js.jpg'
 import cpp from '../assets/cpp.jpg'
 import sql2 from '../assets/sql2.jpg'
 import { useNavigate } from 'react-router-dom'
+import '../pages/css/Home.css'
 
 const artworks = [
   { src: python, user: '@Python', color: 'bg-[#377ef2]' },
@@ -32,16 +33,20 @@ export default function Home() {
   const [hoveredIndex, setHoveredIndex] = React.useState(null)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 text-primary font-sans overflow-x-hidden">
-      
+    <div className="home-wrapper">
+      {/* 🔮 Animated gradient-shifting moving blobs */}
+      <div className="blobs-container">
+        <div className="blob blob1"></div>
+        <div className="blob blob2"></div>
+        <div className="blob blob3"></div>
+      </div>
 
-      <section className="text-center mt-45 px-6">
+      {/* Page content */}
+      <section className="text-center mt-45 px-6 relative z-10">
         <h2 className="text-4xl md:text-5xl font-semibold">
-        Code smarter, Learn faster, <span className="text-black">Only on Codora</span>
-           
+          Code smarter, Learn faster, <span className="text-black">Only on Codora</span>
         </h2>
 
-        {/* Artwork cards */}
         <div className="relative mt-20 flex justify-center items-center">
           <div className="relative flex">
             {artworks.map((art, i) => {
@@ -67,56 +72,48 @@ export default function Home() {
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  {/* Mention bubble */}
                   <MentionBubble
                     user={art.user}
                     color={art.color}
                     show={hoveredIndex === i}
                   />
-
-                  {/* Artwork image */}
                   <img
                     src={art.src}
                     alt={`art-${i}`}
-                    className="w-36 h-36 object-cover rounded-xl shadow-xl border border-gray-300 relative z-10"/>
+                    className="w-36 h-36 object-cover rounded-xl shadow-xl border border-gray-300 relative z-10" />
                 </motion.div>
               )
             })}
           </div>
         </div>
 
-        {/* Description */}
         <p className="mt-10 text-sm text-gray-600 max-w-md mx-auto">
-        A place to explore ideas, gain real skills, and build your future — 
-        {/* new line */}
-        <br />
-        one course at a time.
+          A place to explore ideas, gain real skills, and build your future —
+          <br />
+          one course at a time.
         </p>
 
-        {/* Action buttons */}
         <div className="mt-6 flex justify-center gap-4">
           <button onClick={() => navigate('/register')} className="bg-black text-white px-6 py-3 rounded-full text-sm hover:bg-gray-700 cursor-pointer">Get Started</button>
-          {/* <button className="border border-black px-6 py-3 rounded-full text-sm">Read more</button> */}
         </div>
       </section>
-        {/* Footer */}
-        <footer className="mt-50 py-2 bg-white border-t border-gray-200">
-          <div className="conta5ner mx-auto px-6">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <div className="text-center md:text-left">
-                <h3 className="text-xl font-semibold mb-4">CODORA</h3>
-                <p className="text-gray-600 text-sm">
-                  © {new Date().getFullYear()} CODORA. All rights reserved.
-                </p>
-              </div>
-              <div className="flex gap-4 mt-4 md:mt-0">
-                <a href="#" className="text-gray-600 hover:text-gray-800">Terms</a>
-                <a href="#" className="text-gray-600 hover:text-gray-800">Privacy</a>
-                <a href="#" className="text-gray-600 hover:text-gray-800">Contact</a>
-              </div>
+
+      <footer className="mt-50 py-2 bg-white border-t border-gray-200 relative z-10">
+        <div className="conta5ner mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="text-center flex md:text-left">
+              <p className="text-gray-600 text-lg">
+                © 2025 Codora. All Rights Reserved.
+              </p>
+            </div>
+            <div className="flex gap-4 mt-4 md:mt-0">
+              <a href="#" className="text-gray-600 text-lg hover:text-gray-800">Terms</a>
+              <a href="#" className="text-gray-600 text-lg hover:text-gray-800">Privacy</a>
+              <a href="/contact" className="text-gray-600 text-lg hover:text-gray-800">Contact</a>
             </div>
           </div>
-        </footer>
-      </div>
-    )
+        </div>
+      </footer>
+    </div>
+  )
 }

@@ -1,0 +1,119 @@
+.home-wrapper {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: #ffffff;
+  }
+  
+  /* Container for blobs */
+  .blobs-container {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  /* Base styles for all blobs */
+  .blob {
+    position: absolute;
+    
+    border-radius: 50%;
+    opacity: 0.6;
+    filter: blur(80px);
+    mix-blend-mode: screen;
+    background-size: 200% 200%;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+  }
+  
+  /* === Gradient animation: Unique Themes === */
+  
+  /* Blob 1 - Blue tones */
+  @keyframes colorShift1 {
+    0%   { background: linear-gradient(45deg, #65d7f6, #00f0ff); }
+    25%  { background: linear-gradient(45deg, #00f0ff, #a1c4fd); }
+    50%  { background: linear-gradient(45deg, #a1c4fd, #c2e9fb); }
+    75%  { background: linear-gradient(45deg, #c2e9fb, #65d7f6); }
+    100% { background: linear-gradient(45deg, #65d7f6, #00f0ff); }
+  }
+  
+  /*    Blob 2 - Green tones */
+  @keyframes colorShift2 {
+    0%   { background: linear-gradient(45deg, #84fab0, #8fd3f4); }
+    25%  { background: linear-gradient(45deg, #8fd3f4, #b8d432); }
+    50%  { background: linear-gradient(45deg, #b8d432, #d4fc79); }
+    75%  { background: linear-gradient(45deg, #d4fc79, #84fab0); }
+    100% { background: linear-gradient(45deg, #84fab0, #8fd3f4); }
+  }
+  
+  /* Blob 3 - Pink/Peach tones */
+  @keyframes colorShift3 {
+    0%   { background: linear-gradient(45deg, #f6d365, #fda085); }
+    25%  { background: linear-gradient(45deg, #fda085, #ff9a9e); }
+    50%  { background: linear-gradient(45deg, #ff9a9e, #fad0c4); }
+    75%  { background: linear-gradient(45deg, #fad0c4, #f6d365); }
+    100% { background: linear-gradient(45deg, #f6d365, #fda085); }
+  }
+  
+  /* === Floating motion animations === */
+  
+  @keyframes floatAround1 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(120px, -100px); }
+    35%  { transform: translate(-200px, -200px); }
+    50%  { transform: translate(-150px, 120px); }
+    75%  { transform: translate(80px, 290px); }
+    100% { transform: translate(0, 0); }
+  }
+  
+  @keyframes floatAround2 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(-80px, 80px); }
+    50%  { transform: translate(-120px, -380px); }
+    65%  { transform: translate(240px, -480px); }
+    70%  { transform: translate(240px, -280px); }
+    75%  { transform: translate(-100px, -60px); }
+    100% { transform: translate(0, 0); }
+  }
+  
+  @keyframes floatAround3 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(100px, 100px); }
+    50%  { transform: translate(-120px, -120px); }
+    75%  { transform: translate(150px, 70px); }
+    100% { transform: translate(0, 0); }
+  }
+  
+  /* === Individual blobs === */
+  .blob1 {
+    width: 600px;
+    height: 600px;
+    top: 10%;
+    left: 10%;
+    animation:
+      floatAround1 25s infinite ease-in-out,
+      colorShift1 20s infinite linear;
+  }
+  
+  .blob2 {
+    width: 400px;
+    height: 400px;
+    top: 60%;
+    left: 50%;
+    animation:
+      floatAround2 35s infinite ease-in-out,
+      colorShift2 25s infinite linear;
+  }
+  
+  .blob3 {
+    width: 400px;
+    height: 400px;
+    top: 30%;
+    left: 70%;
+    animation:
+      floatAround3 30s infinite ease-in-out,
+      colorShift3 35s infinite linear;
+  }
+  

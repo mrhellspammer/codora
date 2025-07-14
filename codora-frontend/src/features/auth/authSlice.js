@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    token: null,
-    role: null,
-    username: null,
+  token : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMiIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3NTI0ODY5NTIsImV4cCI6MTc1MjUyMjk1Mn0.MeFGRHoA5Ld99tG-Rzolqa_dGOPvx5RtfZKGuuQemxU",
+  role : "ROLE_USER",
+  username : "user2"
 };
 
 

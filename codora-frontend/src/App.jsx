@@ -13,6 +13,9 @@ import Contact from "./pages/Contact";
 // comp
 import Navbar from "./comp/Navbar";
 
+// routes
+import PrivateRoute from "./routes/Privateroute";
+
 
 
 function App() {
@@ -28,10 +31,13 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="/login" element={<Login />} />
+
+        <Route path="/contact" element={<Contact />} />
+        <Route element={<PrivateRoute />}>
+        <Route path="/blogs" element={<Blog />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:id" element={<CourseContent />} />
-        <Route path="/blogs" element={<Blog />} />
-        <Route path="/contact" element={<Contact />} />
+        </Route>      
       </Routes>
     </Router>
     </>

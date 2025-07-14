@@ -20,7 +20,7 @@ function Navbar() {
   ];
 
   return (
-    <nav className="fixed w-full top-0 z-[5000] px-8 py-4 backdrop-blur-md bg-white/30 border-b border-white/30 shadow-md flex justify-between items-center transition-all duration-300">
+    <nav className="fixed w-full top-0 z-[5000] px-8 py-4 backdrop-blur-md bg-white/30 border-b border-white/30 shadow-md flex justify-between items-center transition-all duration-300 ">
       <h1 className="text-lg font-bold">CODORA</h1>
 
       {/* Nav Links */}
@@ -50,44 +50,71 @@ function Navbar() {
       </ul>
 
       {/* Auth Buttons */}
-      {token ? (
+      {token === "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMiIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3NTI0ODY5NTIsImV4cCI6MTc1MjUyMjk1Mn0.MeFGRHoA5Ld99tG-Rzolqa_dGOPvx5RtfZKGuuQemxU" ? (
         <div className="flex items-center gap-3">
-          <button 
-            className="relative overflow-hidden border border-black px-4 py-2 rounded-full text-sm font-medium text-black group"
-            onClick={() => {
-              dispatch(setCredentials({ token: null, role: null }));
-              navigate('/login');
-            }}
-          >
-            <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
-              Log Out
-            </span>
-            <span className="absolute inset-0 bg-black w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full z-0" />
-          </button>
-        </div>
+        <button 
+                className="relative overflow-hidden border border-black px-4 py-2 rounded-full text-sm font-medium text-white group bg-black"
+                onClick={() => navigate('/login')}
+              >
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-black">
+                  Log In
+                </span>
+                <span className="absolute inset-0 bg-white w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full z-0" />
+              </button>
+        <button 
+          className="relative overflow-hidden border border-black px-4 py-2 rounded-full text-sm font-medium text-black group"
+          onClick={() => {
+            navigate('/courses');
+          }}
+        >
+          <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+            Guest User
+          </span>
+          <span className="absolute inset-0 bg-black w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full z-0" />
+        </button>
+      </div>
       ) : (
-        <div className="flex items-center gap-3">
-          {/* Log In Button */}
-          <button 
-            className="relative overflow-hidden border border-black px-4 py-2 rounded-full text-sm font-medium text-black group"
-            onClick={() => navigate('/login')}
-          >
-            <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
-              Log In
-            </span>
-            <span className="absolute inset-0 bg-black w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full z-0" />
-          </button>
+        <div>
+          {token ? (
+            <div className="flex items-center gap-3">
+              <button 
+                className="relative overflow-hidden border border-black px-4 py-2 rounded-full text-sm font-medium text-black group"
+                onClick={() => {
+                  dispatch(setCredentials({ token: null, role: null }));
+                  navigate('/login');
+                }}
+              >
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+                  Log Out
+                </span>
+                <span className="absolute inset-0 bg-black w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full z-0" />
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              {/* Log In Button */}
+              <button 
+                className="relative overflow-hidden border border-black px-4 py-2 rounded-full text-sm font-medium text-black group"
+                onClick={() => navigate('/login')}
+              >
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+                  Log In
+                </span>
+                <span className="absolute inset-0 bg-black w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full z-0" />
+              </button>
 
-          {/* Sign Up Button */}
-          <button 
-            className="relative overflow-hidden border border-black px-4 py-2 rounded-full text-sm font-medium text-black group"
-            onClick={() => navigate('/register')}
-          >
-            <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
-              Sign Up
-            </span>
-            <span className="absolute inset-0 bg-black w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full z-0" />
-          </button>
+              {/* Sign Up Button */}
+              <button 
+                className="relative overflow-hidden border border-black px-4 py-2 rounded-full text-sm font-medium text-black group"
+                onClick={() => navigate('/register')}
+              >
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+                  Sign Up
+                </span>
+                <span className="absolute inset-0 bg-black w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full z-0" />
+              </button>
+            </div>
+          )}
         </div>
       )}
     </nav>

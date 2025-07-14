@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import "../pages/css/hamster.css"
 
 const CourseContent = () => {
   const { id } = useParams(); // course ID from URL
@@ -23,16 +24,19 @@ const [editingContent, setEditingContent] = useState(null);
 const [editContentType, setEditContentType] = useState("");
 const [editContentValue, setEditContentValue] = useState("");
 const [editContentText, setEditContentText] = useState("");
+const [loading, setLoading] = useState(true);
+
 
 
 
 
   const role = useSelector((state) => state.auth.role);
+  const Base_url = import.meta.env.VITE_BASE_URL;
 
 
   const fetchModules = async () => {
     try {
-      const res = await fetch(`https://codora.onrender.com/courses/${id}/modules`, {
+      const res = await fetch(`${Base_url}/courses/${id}/modules`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -47,6 +51,8 @@ const [editContentText, setEditContentText] = useState("");
       if (data.length > 0) setSelectedModuleId(data[0].id);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,7 +69,7 @@ const [editContentText, setEditContentText] = useState("");
     if (!newModuleTitle.trim()) return;
   
     try {
-      const res = await fetch("https://codora.onrender.com/courses/modules/add", {
+      const res = await fetch(`${Base_url}/courses/modules/add`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -93,7 +99,7 @@ const [editContentText, setEditContentText] = useState("");
   const fetchContents = async () => {
     try {
       const res = await fetch(
-        `https://codora.onrender.com/courses/modules/${selectedModuleId}/contents`,
+        `${Base_url}/courses/modules/${selectedModuleId}/contents`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -126,7 +132,7 @@ const [editContentText, setEditContentText] = useState("");
     if (!confirmDelete) return;
   
     try {
-      const res = await fetch(`https://codora.onrender.com/courses/modules/${moduleId}`, {
+      const res = await fetch(`${Base_url}/courses/modules/${moduleId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -158,7 +164,7 @@ const [editContentText, setEditContentText] = useState("");
     if (!selectedModuleId || !newContentText.trim()) return;
   
     try {
-      const res = await fetch("https://codora.onrender.com/courses/contents/add", {
+      const res = await fetch(`${Base_url}/courses/contents/add`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -191,7 +197,7 @@ const [editContentText, setEditContentText] = useState("");
     if (!confirmDelete) return;
   
     try {
-      const res = await fetch(`https://codora.onrender.com/courses/contents/${contentId}`, {
+      const res = await fetch(`${Base_url}/courses/contents/${contentId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -216,7 +222,7 @@ const [editContentText, setEditContentText] = useState("");
   
     try {
       console.log(editingModule);
-      const res = await fetch(`https://codora.onrender.com/courses/modules/${editingModule.id}`, {
+      const res = await fetch(`${Base_url}/courses/modules/${editingModule.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -249,7 +255,7 @@ const [editContentText, setEditContentText] = useState("");
   if (!editingContent || !selectedModuleId) return;
 
   try {
-    const res = await fetch(`https://codora.onrender.com/courses/contents/${editingContent.id}`, {
+    const res = await fetch(`${Base_url}/courses/contents/${editingContent.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -281,6 +287,35 @@ const [editContentText, setEditContentText] = useState("");
   
 
   return (
+    <div className="p-20 w-full bg-gradient-to-br from-gray-100 to-slate-200 min-h-screen">
+      {loading ? (
+        <div className="flex flex-col items-center justify-center min-h-[500px] gap-6 text-center">
+    <div aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    
+    <div class="spoke"></div>
+
+  </div>
+  <div className="text-xl font-semibold text-gray-800"> Loading Courses </div>
+    <p className="text-sm text-gray-500">Hang tight while we bring you some great content</p>
+</div>
+         
+      ) : (
     <div className="flex w-full h-auto">
     <div className="flex w-90/100 h-auto mx-auto mt-25 mb-7  rounded-3xl gap-2">
       {/* Sidebar */}
@@ -574,6 +609,7 @@ const [editContentText, setEditContentText] = useState("");
 
       </div>
     </div>
+    </div>)}
     </div>
   );
 };
